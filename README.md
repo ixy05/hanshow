@@ -1,37 +1,42 @@
 # Hanshow
 
 
-## Wiring
-| EPaper Tag | Flasher |
+## Initial Wiring
+| EPaper Tag | UART Flasher |
 | --- | --- |
 | GND | GND |
-| VCC | 3v |
+| VCC* | 3v |
 | SWS | TXD |
-| NRST | GND |
+| NRST | DTR^ |
+
+\* only needed if battery is disconnected
+
+\^ DTR pin is not made availible to all UART programmers. You may need to manually solder from the UART chip itself.
 
 ## Flashing
-1. Clone / [download repo ](https://github.com/atc1441/ATC_TLSR_Paper)
-2. Baud: 460800, Atime: 3 sec
-3. Open **USB-COM** (must be done in Edge/Chrome)
-4. **Unlock flash** 
-5. Select and upload firmware by **Choosing File**
-6. **Write to flash**
-7. ❗While "Activate (3 sec)" is on (and blue light is on EPaper), **disconnect** NRST from ground ❗
+1. Wire as per table above
+1. Go to [ATC_BLE_OEPL Uploader](https://atc1441.github.io/ATC_BLE_OEPL_Image_Upload.html)
+2. Open **USB-COM** (must be done in Edge/Chrome)
+3. Leave Baud and Activiation as they are
+4. Optional: Set Device Type. This depends on your display. This can be changed later.
+5. 'Load ATC_BLE_OEPL.bin'
+6. 'Write Firmware', if you set a Device Type (from step 4), click 'Write Firmware and Type'
+7. You know it will be working as the LED will be flashing. If not, check your wiring
 
+### UART Flasher
+I was able to use an ESP-01 programmer to flash my EPaper displays. I had to solder a wire to connect DTR pin on the CH340 to the epaper display.
 
-### Flasher
-I was able to use an ESP-01 programmer to flash my EPaper displays. 
+### Confirmed Tag Types
+1. Nebular 350R-N
+2. Nebular 346
+
+## Video Tutorial
+https://youtu.be/9oKWkHGI-Yk
 
 ## Tools
-| Tool | Usage | Compatability* | Link |
+| Tool | Link |
 | --- | --- | --- | --- |
-| UART Uploader | To upload '.bin' files to the epaper tags | All | https://atc1441.github.io/ATC_TLSR_Paper_UART_Flasher.html |
-| Bluetooth Image Upload | Send a hex sequence to tag | [ATC_TLSR_Paper](https://github.com/atc1441/ATC_TLSR_Paper) | https://atc1441.github.io/ATC_TLSR_Paper_Image_Upload.html |
-| Bluetooth OTA Uploader | Upload firmware; read RAM and flash storage; send CMDs | [ATC_TLSR_Paper](https://github.com/atc1441/ATC_TLSR_Paper) | https://atc1441.github.io/ATC_TLSR_Paper_OTA_writing.html |
-| Bluetooth Controller | Send commands; upload images; upload drawings (made on web); clear screen | Primarily for [garobcsi/ATC_TLSR_Paper](https://github.com/garobcsi/ATC_TLSR_Paper) | https://garobcsi.github.io/ATC_TLSR_Paper/web_tools/ |
-
-\* Compatability is not limited to what has been listed
-
+| BLE + Serial OEPL Uploader + Controller | [ATC_BLE_OEPL Uploader](https://atc1441.github.io/ATC_BLE_OEPL_Image_Upload.html) |
 
 
 ## Attributions
